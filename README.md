@@ -1,3 +1,19 @@
+# Escopo
+Projeto para aprender NestJS no curso de ADS do Senac.
+
+## Ideia Inicial
+Replicar uma estrutura que já fiz com typeORM, em 2020.
+Tentar aplicar com typeORM dentro do nest e ver como se comporta.
+
+### Entidades/Classes:
+Student, Class, Content, Lesson.
+
+## Ideia Secundaria
+Assumindo que a ideia inicial seja feita de forma "simples", desenvolver uma estrutura para listas de filmes. (ainda falta finalizar o ER)
+
+### Entidades/Classes:
+User, List, Type, Avaliation, Media, Reaction, Category
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -71,3 +87,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
