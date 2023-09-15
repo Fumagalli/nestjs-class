@@ -23,6 +23,16 @@ Assumindo que a ideia inicial seja feita de forma "simples", desenvolver uma est
 * Reaction
 * Category
 
+
+# SETUP
+Criar arquivo .env na raiz do projeto.
+
+Adicionar os seguintes campos no .env
+
+DATABASE_HOST=host
+DATABASE_NAME=databaseName
+DATABASE_USER=databaseUser
+DATABASE_PASSWORD=databasePassword
 ---
 
 <p align="center">
