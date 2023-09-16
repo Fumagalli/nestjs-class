@@ -1,7 +1,12 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-
-@ObjectType()
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+@Entity()
 export class Student {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  key: string;
 }

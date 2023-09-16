@@ -13,15 +13,15 @@ export class StudentsService {
     return `This action returns all students`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} student`;
   }
 
-  update(id: number, updateStudentInput: UpdateStudentInput) {
+  update(id: string, updateStudentInput: UpdateStudentInput) {
     return `This action updates a #${id} student`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} student`;
   }
 }

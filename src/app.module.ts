@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { CatsModule } from './modules/cats/cats.module';
-import { UsersModule } from './modules/users/users.module';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -18,6 +16,7 @@ import { StudentsModule } from './modules/students/students.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      context: ({ req }) => ({ req }),
       sortSchema: true,
     }),
     TypeOrmModule.forRoot({
