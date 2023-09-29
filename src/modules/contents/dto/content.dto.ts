@@ -7,6 +7,5 @@ export class ContentDTO extends BaseDTO {
   @FilterableField({ nullable: true })
   description: string;
 
-  @FilterableField()
   linkContent: string;
 }
