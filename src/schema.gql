@@ -4,12 +4,8 @@
 
 type Content {
   createdAt: DateTime!
-  deletedAt: DateTime!
-<<<<<<< HEAD
+  deletedAt: DateTime
   description: String
-=======
-  description: String!
->>>>>>> 0a2da38b1a71d3256900430fecb433d585816898
   id: String!
   linkContent: String!
   updatedAt: DateTime!
@@ -32,7 +28,6 @@ input ContentDeleteFilter {
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
-  linkContent: StringFieldComparison
   or: [ContentDeleteFilter!]
   updatedAt: DateFieldComparison
 }
@@ -52,7 +47,6 @@ input ContentFilter {
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
-  linkContent: StringFieldComparison
   or: [ContentFilter!]
   updatedAt: DateFieldComparison
 }
@@ -68,7 +62,6 @@ enum ContentSortFields {
   deletedAt
   description
   id
-  linkContent
   updatedAt
 }
 
@@ -78,7 +71,6 @@ input ContentUpdateFilter {
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
-  linkContent: StringFieldComparison
   or: [ContentUpdateFilter!]
   updatedAt: DateFieldComparison
 }
@@ -213,7 +205,7 @@ input DeleteOneStudentInput {
 
 type Discipline {
   createdAt: DateTime!
-  deletedAt: DateTime!
+  deletedAt: DateTime
   id: String!
   name: String!
   updatedAt: DateTime!
@@ -284,7 +276,7 @@ input DisciplineUpdateFilter {
 
 type Lesson {
   createdAt: DateTime!
-  deletedAt: DateTime!
+  deletedAt: DateTime
   description: String!
   id: String!
   updatedAt: DateTime!
@@ -486,7 +478,7 @@ input StringFieldComparison {
 
 type Student {
   createdAt: DateTime!
-  deletedAt: DateTime!
+  deletedAt: DateTime
   id: String!
   key: String!
   name: String!
