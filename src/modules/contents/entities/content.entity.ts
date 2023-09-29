@@ -4,5 +4,8 @@ import { Column, Entity } from 'typeorm';
 @Entity()
 export class Content extends Base {
   @Column()
-  name: string;
+  description: string;
+
+  @Column()
+  linkContent: string;
 }
