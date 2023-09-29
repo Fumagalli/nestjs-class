@@ -7,6 +7,7 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { StudentsModule } from './modules/students/students.module';
+import { DisciplinesModule } from './modules/disciplines/disciplines.module';
 
 @Module({
   imports: [
@@ -26,10 +27,11 @@ import { StudentsModule } from './modules/students/students.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [],
+      entities: [__dirname + '/modules/**/entities/*.js'],
       synchronize: true,
     }),
     StudentsModule,
+    DisciplinesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
