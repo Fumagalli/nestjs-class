@@ -5,6 +5,7 @@ import { Student } from './entities/student.entity';
 import { StudentDTO } from './dto/student.dto';
 import { CreateStudentInput } from './dto/create-student.input';
 import { UpdateStudentInput } from './dto/update-student.input';
+import { PagingStrategies } from '@ptc-org/nestjs-query-graphql';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UpdateStudentInput } from './dto/update-student.input';
           CreateDTOClass: CreateStudentInput,
           UpdateDTOClass: UpdateStudentInput,
           enableTotalCount: true,
+          pagingStrategy: PagingStrategies.OFFSET,
         },
       ],
     }),
