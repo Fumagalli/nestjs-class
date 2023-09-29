@@ -19,6 +19,7 @@ import { PagingStrategies } from '@ptc-org/nestjs-query-graphql';
           UpdateDTOClass: UpdateStudentInput,
           enableTotalCount: true,
           pagingStrategy: PagingStrategies.OFFSET,
+          enableSubscriptions: true,
         },
       ],
     }),

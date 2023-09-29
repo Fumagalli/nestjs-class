@@ -5,8 +5,9 @@
 type Content {
   createdAt: DateTime!
   deletedAt: DateTime
-  description: String
+  description: String!
   id: String!
+  lesson: Lesson!
   linkContent: String!
   updatedAt: DateTime!
 }
@@ -28,6 +29,7 @@ input ContentDeleteFilter {
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
+  linkContent: StringFieldComparison
   or: [ContentDeleteFilter!]
   updatedAt: DateFieldComparison
 }
@@ -47,7 +49,19 @@ input ContentFilter {
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
+  lesson: ContentFilterLessonFilter
+  linkContent: StringFieldComparison
   or: [ContentFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input ContentFilterLessonFilter {
+  and: [ContentFilterLessonFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  or: [ContentFilterLessonFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -62,7 +76,19 @@ enum ContentSortFields {
   deletedAt
   description
   id
+  linkContent
   updatedAt
+}
+
+input ContentSubscriptionFilter {
+  and: [ContentSubscriptionFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  linkContent: StringFieldComparison
+  or: [ContentSubscriptionFilter!]
+  updatedAt: DateFieldComparison
 }
 
 input ContentUpdateFilter {
@@ -71,21 +97,37 @@ input ContentUpdateFilter {
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
+  linkContent: StringFieldComparison
   or: [ContentUpdateFilter!]
   updatedAt: DateFieldComparison
 }
 
 input CreateContentInput {
   description: String
+  lesson: UpdateLessonInput!
   linkContent: String
 }
 
+input CreateContentSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: ContentSubscriptionFilter!
+}
+
 input CreateDisciplineInput {
+  duration: Float!
+  lesson: UpdateLessonInput!
   name: String!
 }
 
 input CreateLessonInput {
+  contents: UpdateContentInput!
   description: String!
+  discipline: UpdateDisciplineInput!
+}
+
+input CreateLessonSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: LessonSubscriptionFilter!
 }
 
 input CreateManyContentsInput {
@@ -129,8 +171,15 @@ input CreateOneStudentInput {
 }
 
 input CreateStudentInput {
+  disciplines: UpdateDisciplineInput!
+  email: String!
   key: String!
   name: String!
+}
+
+input CreateStudentSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: StudentSubscriptionFilter!
 }
 
 input DateFieldComparison {
@@ -188,6 +237,11 @@ input DeleteOneContentInput {
   id: ID!
 }
 
+input DeleteOneContentSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: ContentSubscriptionFilter!
+}
+
 input DeleteOneDisciplineInput {
   """The id of the record to delete."""
   id: ID!
@@ -198,15 +252,27 @@ input DeleteOneLessonInput {
   id: ID!
 }
 
+input DeleteOneLessonSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: LessonSubscriptionFilter!
+}
+
 input DeleteOneStudentInput {
   """The id of the record to delete."""
   id: ID!
 }
 
+input DeleteOneStudentSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: StudentSubscriptionFilter!
+}
+
 type Discipline {
   createdAt: DateTime!
   deletedAt: DateTime
+  duration: Float!
   id: String!
+  lesson: Lesson!
   name: String!
   updatedAt: DateTime!
 }
@@ -226,6 +292,7 @@ input DisciplineDeleteFilter {
   and: [DisciplineDeleteFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  duration: NumberFieldComparison
   id: StringFieldComparison
   name: StringFieldComparison
   or: [DisciplineDeleteFilter!]
@@ -235,6 +302,7 @@ input DisciplineDeleteFilter {
 type DisciplineDeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
+  duration: Float
   id: String
   name: String
   updatedAt: DateTime
@@ -244,9 +312,21 @@ input DisciplineFilter {
   and: [DisciplineFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  duration: NumberFieldComparison
   id: StringFieldComparison
+  lesson: DisciplineFilterLessonFilter
   name: StringFieldComparison
   or: [DisciplineFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input DisciplineFilterLessonFilter {
+  and: [DisciplineFilterLessonFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  or: [DisciplineFilterLessonFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -259,6 +339,7 @@ input DisciplineSort {
 enum DisciplineSortFields {
   createdAt
   deletedAt
+  duration
   id
   name
   updatedAt
@@ -268,6 +349,7 @@ input DisciplineUpdateFilter {
   and: [DisciplineUpdateFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  duration: NumberFieldComparison
   id: StringFieldComparison
   name: StringFieldComparison
   or: [DisciplineUpdateFilter!]
@@ -275,9 +357,20 @@ input DisciplineUpdateFilter {
 }
 
 type Lesson {
+  contents(
+    """Specify to filter the records returned."""
+    filter: ContentFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ContentSort!]! = []
+  ): LessonContentsConnection!
   createdAt: DateTime!
   deletedAt: DateTime
   description: String!
+  discipline: Discipline!
   id: String!
   updatedAt: DateTime!
 }
@@ -285,6 +378,17 @@ type Lesson {
 type LessonConnection {
   """Array of nodes."""
   nodes: [Lesson!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type LessonContentsConnection {
+  """Array of nodes."""
+  nodes: [Content!]!
 
   """Paging information"""
   pageInfo: OffsetPageInfo!
@@ -313,11 +417,35 @@ type LessonDeleteResponse {
 
 input LessonFilter {
   and: [LessonFilter!]
+  contents: LessonFilterContentFilter
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  discipline: LessonFilterDisciplineFilter
+  id: StringFieldComparison
+  or: [LessonFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input LessonFilterContentFilter {
+  and: [LessonFilterContentFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
-  or: [LessonFilter!]
+  linkContent: StringFieldComparison
+  or: [LessonFilterContentFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input LessonFilterDisciplineFilter {
+  and: [LessonFilterDisciplineFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  duration: NumberFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [LessonFilterDisciplineFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -333,6 +461,16 @@ enum LessonSortFields {
   description
   id
   updatedAt
+}
+
+input LessonSubscriptionFilter {
+  and: [LessonSubscriptionFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  or: [LessonSubscriptionFilter!]
+  updatedAt: DateFieldComparison
 }
 
 input LessonUpdateFilter {
@@ -370,6 +508,26 @@ type Mutation {
   updateOneDiscipline(input: UpdateOneDisciplineInput!): Discipline!
   updateOneLesson(input: UpdateOneLessonInput!): Lesson!
   updateOneStudent(input: UpdateOneStudentInput!): Student!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
 }
 
 type OffsetPageInfo {
@@ -479,6 +637,8 @@ input StringFieldComparison {
 type Student {
   createdAt: DateTime!
   deletedAt: DateTime
+  discipline: Discipline!
+  email: String!
   id: String!
   key: String!
   name: String!
@@ -500,6 +660,7 @@ input StudentDeleteFilter {
   and: [StudentDeleteFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  email: StringFieldComparison
   id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
@@ -510,6 +671,7 @@ input StudentDeleteFilter {
 type StudentDeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
+  email: String
   id: String
   key: String
   name: String
@@ -520,10 +682,23 @@ input StudentFilter {
   and: [StudentFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  discipline: StudentFilterDisciplineFilter
+  email: StringFieldComparison
   id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
   or: [StudentFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input StudentFilterDisciplineFilter {
+  and: [StudentFilterDisciplineFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  duration: NumberFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentFilterDisciplineFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -536,16 +711,30 @@ input StudentSort {
 enum StudentSortFields {
   createdAt
   deletedAt
+  email
   id
   key
   name
   updatedAt
 }
 
+input StudentSubscriptionFilter {
+  and: [StudentSubscriptionFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: StringFieldComparison
+  key: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentSubscriptionFilter!]
+  updatedAt: DateFieldComparison
+}
+
 input StudentUpdateFilter {
   and: [StudentUpdateFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  email: StringFieldComparison
   id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
@@ -553,19 +742,42 @@ input StudentUpdateFilter {
   updatedAt: DateFieldComparison
 }
 
+type Subscription {
+  createdContent(input: CreateContentSubscriptionFilterInput): Content!
+  createdLesson(input: CreateLessonSubscriptionFilterInput): Lesson!
+  createdStudent(input: CreateStudentSubscriptionFilterInput): Student!
+  deletedManyContents: DeleteManyResponse!
+  deletedManyLessons: DeleteManyResponse!
+  deletedManyStudents: DeleteManyResponse!
+  deletedOneContent(input: DeleteOneContentSubscriptionFilterInput): ContentDeleteResponse!
+  deletedOneLesson(input: DeleteOneLessonSubscriptionFilterInput): LessonDeleteResponse!
+  deletedOneStudent(input: DeleteOneStudentSubscriptionFilterInput): StudentDeleteResponse!
+  updatedManyContents: UpdateManyResponse!
+  updatedManyLessons: UpdateManyResponse!
+  updatedManyStudents: UpdateManyResponse!
+  updatedOneContent(input: UpdateOneContentSubscriptionFilterInput): Content!
+  updatedOneLesson(input: UpdateOneLessonSubscriptionFilterInput): Lesson!
+  updatedOneStudent(input: UpdateOneStudentSubscriptionFilterInput): Student!
+}
+
 input UpdateContentInput {
   description: String
   id: ID
+  lesson: UpdateLessonInput
   linkContent: String
 }
 
 input UpdateDisciplineInput {
+  duration: Float
   id: ID
+  lesson: UpdateLessonInput
   name: String
 }
 
 input UpdateLessonInput {
+  contents: UpdateContentInput
   description: String
+  discipline: UpdateDisciplineInput
   id: ID
 }
 
@@ -614,6 +826,11 @@ input UpdateOneContentInput {
   update: UpdateContentInput!
 }
 
+input UpdateOneContentSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: ContentSubscriptionFilter!
+}
+
 input UpdateOneDisciplineInput {
   """The id of the record to update"""
   id: ID!
@@ -630,6 +847,11 @@ input UpdateOneLessonInput {
   update: UpdateLessonInput!
 }
 
+input UpdateOneLessonSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: LessonSubscriptionFilter!
+}
+
 input UpdateOneStudentInput {
   """The id of the record to update"""
   id: ID!
@@ -638,8 +860,15 @@ input UpdateOneStudentInput {
   update: UpdateStudentInput!
 }
 
+input UpdateOneStudentSubscriptionFilterInput {
+  """Specify to filter the records returned."""
+  filter: StudentSubscriptionFilter!
+}
+
 input UpdateStudentInput {
+  disciplines: UpdateDisciplineInput
+  email: String
   id: ID
-  key: String!
-  name: String!
+  key: String
+  name: String
 }
