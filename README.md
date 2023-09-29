@@ -5,6 +5,9 @@ Projeto para aprender NestJS no curso de ADS do Senac.
 Replicar uma estrutura que já fiz com typeORM, em 2020.
 Tentar aplicar com typeORM dentro do nest e ver como se comporta.
 
+## Comentario
+Acho que se eu remover o graphql da questão eu consigo fazer o projeto rodar da forma que eu quero, muito mais rápido. Cogitar isso.
+
 ## Entidades/Classes/Modulo:
 ```bash
 Student
