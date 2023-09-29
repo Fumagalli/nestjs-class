@@ -321,7 +321,7 @@ input StudentUpdateFilter {
 }
 
 input UpdateDisciplineInput {
-  id: ID!
+  id: ID
   name: String
 }
 
@@ -363,7 +363,7 @@ input UpdateOneStudentInput {
 }
 
 input UpdateStudentInput {
-  id: ID!
+  id: ID
   key: String!
   name: String!
 }
