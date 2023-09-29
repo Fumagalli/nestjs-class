@@ -17,10 +17,6 @@ Lesson
 ```bash
 Students
 Discipline
-```
-
-### Modulos que falta fazer
-```bash
 Content
 Lesson
 ```
