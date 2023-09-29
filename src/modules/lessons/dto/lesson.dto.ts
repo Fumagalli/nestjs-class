@@ -5,5 +5,5 @@ import { BaseDTO } from 'src/modules/bases/dto/base.dto';
 @ObjectType('Lesson')
 export class LessonDTO extends BaseDTO {
   @FilterableField()
-  name: string;
+  description: string;
 }

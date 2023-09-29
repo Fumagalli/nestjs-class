@@ -4,6 +4,9 @@ import { BaseDTO } from 'src/modules/bases/dto/base.dto';
 
 @ObjectType('Content')
 export class ContentDTO extends BaseDTO {
+  @FilterableField({ nullable: true })
+  description: string;
+
   @FilterableField()
-  name: string;
+  linkContent: string;
 }
