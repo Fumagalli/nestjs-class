@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { StudentsModule } from './modules/students/students.module';
 import { DisciplinesModule } from './modules/disciplines/disciplines.module';
+import { LessonsModule } from './modules/lessons/lessons.module';
+import { ContentsModule } from './modules/contents/contents.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { DisciplinesModule } from './modules/disciplines/disciplines.module';
     }),
     StudentsModule,
     DisciplinesModule,
+    LessonsModule,
+    ContentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
