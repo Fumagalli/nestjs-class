@@ -2,7 +2,7 @@ import { MaxLength } from 'class-validator';
 import { Base } from 'src/modules/bases/entities/base.entity';
 import { Content } from 'src/modules/contents/entities/content.entity';
 import { Discipline } from 'src/modules/disciplines/entities/discipline.entity';
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Lesson extends Base {
@@ -12,11 +12,12 @@ export class Lesson extends Base {
   })
   description: string;
 
-  @OneToMany(() => Content, (contents) => contents.lesson)
+  @OneToMany(() => Content, (content) => content.lesson)
   contents: Content[];
 
-  @ManyToOne(() => Discipline, (discipline) => discipline.lesson, {
-    eager: true,
-  })
+  // @OneToMany(() => Photo, (photo) => photo.user)
+  // photos: Photo[]
+
+  @ManyToOne(() => Discipline, (discipline) => discipline.lesson)
   discipline: Discipline;
 }

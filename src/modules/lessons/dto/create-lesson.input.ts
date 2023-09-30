@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { UpdateContentInput } from 'src/modules/contents/dto/update-content.input';
+import { CreateDisciplineInput } from 'src/modules/disciplines/dto/create-discipline.input';
 import { UpdateDisciplineInput } from 'src/modules/disciplines/dto/update-discipline.input';
 
 @InputType()
@@ -9,6 +10,6 @@ export class CreateLessonInput {
   @Field(() => UpdateContentInput)
   contents: UpdateContentInput;
 
-  @Field(() => UpdateDisciplineInput)
-  discipline: UpdateDisciplineInput;
+  @Field(() => CreateDisciplineInput)
+  discipline: CreateDisciplineInput;
 }

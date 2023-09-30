@@ -1,7 +1,7 @@
 import { MaxLength, IsEmail } from 'class-validator';
 import { Base } from 'src/modules/bases/entities/base.entity';
 import { Discipline } from 'src/modules/disciplines/entities/discipline.entity';
-import { Column, Entity, ManyToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Student extends Base {
@@ -22,6 +22,5 @@ export class Student extends Base {
   email: string;
 
   @ManyToMany(() => Discipline)
-  // @JoinTable()
   disciplines: Discipline[];
 }

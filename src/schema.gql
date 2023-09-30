@@ -104,7 +104,7 @@ input ContentUpdateFilter {
 
 input CreateContentInput {
   description: String
-  lesson: UpdateLessonInput!
+  lesson: CreateLessonInput!
   linkContent: String
 }
 
@@ -122,7 +122,7 @@ input CreateDisciplineInput {
 input CreateLessonInput {
   contents: UpdateContentInput!
   description: String!
-  discipline: UpdateDisciplineInput!
+  discipline: CreateDisciplineInput!
 }
 
 input CreateLessonSubscriptionFilterInput {
@@ -763,7 +763,7 @@ type Subscription {
 input UpdateContentInput {
   description: String
   id: ID
-  lesson: UpdateLessonInput
+  lesson: CreateLessonInput
   linkContent: String
 }
 
@@ -777,7 +777,7 @@ input UpdateDisciplineInput {
 input UpdateLessonInput {
   contents: UpdateContentInput
   description: String
-  discipline: UpdateDisciplineInput
+  discipline: CreateDisciplineInput
   id: ID
 }
 

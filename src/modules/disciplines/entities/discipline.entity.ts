@@ -1,7 +1,8 @@
 import { MaxLength } from 'class-validator';
 import { Base } from 'src/modules/bases/entities/base.entity';
 import { Lesson } from 'src/modules/lessons/entities/lesson.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Student } from 'src/modules/students/entities/student.entity';
+import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity()
 export class Discipline extends Base {
@@ -16,4 +17,7 @@ export class Discipline extends Base {
 
   @OneToMany(() => Lesson, (lesson) => lesson.discipline)
   lesson: Lesson[];
+
+  @ManyToMany(() => Student)
+  students: Student[];
 }

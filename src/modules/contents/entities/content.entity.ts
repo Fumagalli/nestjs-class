@@ -17,9 +17,6 @@ export class Content extends Base {
   })
   linkContent: string;
 
-  @ManyToOne(() => Lesson, (lesson) => lesson.contents, {
-    eager: true,
-    onDelete: 'SET NULL',
-  })
+  @ManyToOne(() => Lesson, (lesson) => lesson.contents)
   lesson: Lesson;
 }
