@@ -8,6 +8,15 @@ Tentar aplicar com typeORM dentro do nest e ver como se comporta.
 ## Comentario
 Acho que se eu remover o graphql da questão eu consigo fazer o projeto rodar da forma que eu quero, muito mais rápido. Cogitar isso.
 
+### Relação das tabelas.
+1 -> N
+N <-> N
+Content -> Lesson
+Lesson -> Discipline
+
+Discipline <-> Student
+
+
 ## Entidades/Classes/Modulo:
 ```bash
 Student
