@@ -11,10 +11,12 @@ Acho que se eu remover o graphql da questão eu consigo fazer o projeto rodar da
 ### Relação das tabelas.
 1 -> N
 N <-> N
-Content -> Lesson
-Lesson -> Discipline
+Content N -> 1 Lesson
+Lesson N -> 1 Discipline
+Discipline N <-> N Student
 
-Discipline <-> Student
+
+1 Conteudo, 
 
 
 ## Entidades/Classes/Modulo:

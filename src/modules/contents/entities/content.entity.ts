@@ -18,5 +18,5 @@ export class Content extends Base {
   linkContent: string;
 
   @ManyToOne(() => Lesson, (lesson) => lesson.contents)
-  lesson: Lesson;
+  lesson?: Lesson;
 }

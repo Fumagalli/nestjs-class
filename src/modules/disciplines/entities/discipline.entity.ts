@@ -16,8 +16,8 @@ export class Discipline extends Base {
   duration: number;
 
   @OneToMany(() => Lesson, (lesson) => lesson.discipline)
-  lesson: Lesson[];
+  lesson?: Lesson[];
 
   @ManyToMany(() => Student)
-  students: Student[];
+  students?: Student[];
 }

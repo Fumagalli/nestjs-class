@@ -13,11 +13,11 @@ export class Lesson extends Base {
   description: string;
 
   @OneToMany(() => Content, (content) => content.lesson)
-  contents: Content[];
+  contents?: Content[];
 
   // @OneToMany(() => Photo, (photo) => photo.user)
   // photos: Photo[]
 
   @ManyToOne(() => Discipline, (discipline) => discipline.lesson)
-  discipline: Discipline;
+  discipline?: Discipline;
 }

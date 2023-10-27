@@ -10,7 +10,7 @@ import { DisciplineDTO } from 'src/modules/disciplines/dto/disciplines.dto';
 
 @ObjectType('Lesson')
 @FilterableOffsetConnection('contents', () => ContentDTO)
-@FilterableRelation('discipline', () => DisciplineDTO)
+@FilterableRelation('discipline', () => DisciplineDTO, { nullable: false })
 export class LessonDTO extends BaseDTO {
   @FilterableField()
   description: string;

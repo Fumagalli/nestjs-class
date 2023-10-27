@@ -8,5 +8,5 @@ export class CreateContentInput {
   linkContent?: string;
 
   @Field(() => CreateLessonInput)
-  lesson: CreateLessonInput;
+  lesson?: CreateLessonInput;
 }

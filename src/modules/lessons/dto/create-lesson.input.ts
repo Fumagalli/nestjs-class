@@ -8,8 +8,8 @@ export class CreateLessonInput {
   description: string;
 
   @Field(() => UpdateContentInput)
-  contents: UpdateContentInput;
+  contents?: UpdateContentInput;
 
   @Field(() => CreateDisciplineInput)
-  discipline: CreateDisciplineInput;
+  discipline?: CreateDisciplineInput;
 }

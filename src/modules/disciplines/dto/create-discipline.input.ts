@@ -7,5 +7,5 @@ export class CreateDisciplineInput {
   duration: number;
 
   @Field(() => UpdateLessonInput)
-  lesson: UpdateLessonInput;
+  lesson?: UpdateLessonInput;
 }
